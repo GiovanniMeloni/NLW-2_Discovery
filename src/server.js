@@ -1,3 +1,4 @@
+//Data
 const proffys = [
     {
         name:"Diego Fernandes",
@@ -17,7 +18,7 @@ const proffys = [
         ]
     },
     {
-        name:"Diego Fernandes",
+        name:"Diego Troslei",
         avatar:"https://avatars2.githubusercontent.com/u/2254731?s=460&amp;u=0ba16a79456c2f250e7579cb388fa18c5c2d7d65&amp;v=4", 
         whatsapp:"669696969696", 
         bio:"Entusiasta das melhores tecnologias de química avançada.<br><br>Apaixonado por explodir coisas em laboratório e por mudar a vida das pessoas através de experiências. Mais de 200.000 pessoas já passaram por uma das minhas explosões.", 
@@ -34,25 +35,74 @@ const proffys = [
         ]
     }
 ]
+
+const subjects=[
+    "Artes",
+    "Biologia",
+    "Ciências",
+    "Educação Física",
+    "Física",
+    "Geografia",
+    "História",
+    "Matemática",
+    "Português",
+    "Química",
+]
+
+const weekdays=[
+    "Domingo",
+    "Segunda-feira",
+    "Terça-feira",
+    "Quarta-feira",
+    "Quinta-feira",
+    "Sexta-feira",
+    "Sábado"
+]
+
+//Imports
 const path = require("path")
 const express = require("express")
 const server = express()
+const nunjucks = require("nunjucks")
 
-
+//Functions
+function getSubject(subjectNumber){
+    return subjects[+subjectNumber-1]
+}
 function pageLanding(req, res){
-    return res.sendFile(path.join(__dirname, "/views", "/index.html")) 
+    return res.render("index.html")
 }
 
 function pageStudy(req, res){
-    return res.sendFile(path.join(__dirname, "/views", "/study.html"))
+    const filters = req.query
+    return res.render("study.html", {proffys, filters, subjects, weekdays})
 }
 
 function pageGiveClasses(req, res){
-    return res.sendFile(path.join(__dirname, "/views", "/give-classes.html"))
+    const data = req.query
+    const isNotEmpty = Object.keys(data).length > 0
+    if (isNotEmpty){
+        data.subject = getSubject(data.subject)
+        
+        proffys.push(data)
+
+        return res.redirect("/study")
+    }
+    
+
+    return res.render("give-classes.html", {subjects,weekdays})
 }
 
+//Nunjucks configure
+nunjucks.configure('src/views', {
+    express: server,
+    noCache: true,
+})
 
-server.use(express.static("public"))
+
+//Server
+server
+.use(express.static("public"))
 .get("/", pageLanding)  
 .get("/study", pageStudy)
 .get("/give-classes", pageGiveClasses)

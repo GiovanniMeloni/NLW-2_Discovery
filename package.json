@@ -4,7 +4,6 @@
   "description": "Este projeto foi desenvolvido durante a segunda edição da Next Level Week pela Rocketseat. Neste repositório será encontrado o resultado ao ter seguido a trilha Discovery que tem como objetivo introduzir as tecnologias de desenvolvimento Web enquanto produz uma plataforma de estudos online",
   "main": "index.js",
   "scripts": {
-
     "dev": "nodemon src/server.js"
   },
   "repository": {
@@ -19,7 +18,8 @@
   },
   "homepage": "https://github.com/Giovanni-P-Meloni/NLW-2_Discovery#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
