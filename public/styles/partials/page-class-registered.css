@@ -1,0 +1,37 @@
+#page-class-registered #container{
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--color-primary);
+}
+
+
+@media (min-width:700px){
+    #page-class-registered #container{
+        max-width: 100vw;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #page-class-registered #container .success-background{
+        position: relative;
+    }
+
+    #page-class-registered #container .success-message{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    #page-class-registered #container .success-message h1{
+        color: var(--color-title-in-primary);
+    }
+    #page-class-registered #container .success-message p{
+        color: var(--color-text-in-primary);
+    }
+
+
+}
